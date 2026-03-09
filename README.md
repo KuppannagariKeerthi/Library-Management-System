@@ -72,5 +72,7 @@ Example Menu:
 • Handling user input using Scanner
 • Designing menu-driven console applications
 
+## Project Output
 
+![Output](screenshots/output.png)
 
