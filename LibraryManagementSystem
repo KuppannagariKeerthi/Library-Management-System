@@ -1,0 +1,212 @@
+import java.util.Scanner;
+
+class Book {
+    int id;
+    String name;
+    String author;
+    boolean issued;
+
+    Book(int id, String name, String author) {
+        this.id = id;
+        this.name = name;
+        this.author = author;
+        this.issued = false;
+    }
+}
+
+class Student {
+    int id;
+    String name;
+
+    Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+public class LibraryManagementSystem {
+
+    static Book books[] = new Book[100];
+    static Student students[] = new Student[100];
+
+    static int bookCount = 0;
+    static int studentCount = 0;
+
+    static Scanner sc = new Scanner(System.in);
+
+    // Add Book
+    public static void addBook() {
+
+        System.out.print("Enter Book ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Book Name: ");
+        String name = sc.nextLine();
+
+        System.out.print("Enter Author Name: ");
+        String author = sc.nextLine();
+
+        books[bookCount] = new Book(id, name, author);
+        bookCount++;
+
+        System.out.println("Book added successfully");
+    }
+
+    // View Books
+    public static void viewBooks() {
+
+        if (bookCount == 0) {
+            System.out.println("No books available");
+            return;
+        }
+
+        for (int i = 0; i < bookCount; i++) {
+
+            System.out.println("ID: " + books[i].id);
+            System.out.println("Name: " + books[i].name);
+            System.out.println("Author: " + books[i].author);
+            System.out.println("Issued: " + books[i].issued);
+            System.out.println("------------------");
+        }
+    }
+
+    // Register Student
+    public static void registerStudent() {
+
+        System.out.print("Enter Student ID: ");
+        int id = sc.nextInt();
+        sc.nextLine();
+
+        System.out.print("Enter Student Name: ");
+        String name = sc.nextLine();
+
+        students[studentCount] = new Student(id, name);
+        studentCount++;
+
+        System.out.println("Student registered successfully");
+    }
+
+    // View Students
+    public static void viewStudents() {
+
+        if (studentCount == 0) {
+            System.out.println("No students registered");
+            return;
+        }
+
+        for (int i = 0; i < studentCount; i++) {
+
+            System.out.println("ID: " + students[i].id);
+            System.out.println("Name: " + students[i].name);
+            System.out.println("------------------");
+        }
+    }
+
+    // Issue Book
+    public static void issueBook() {
+
+        System.out.print("Enter Book ID: ");
+        int bookId = sc.nextInt();
+
+        System.out.print("Enter Student ID: ");
+        int studentId = sc.nextInt();
+
+        for (int i = 0; i < bookCount; i++) {
+
+            if (books[i].id == bookId) {
+
+                if (!books[i].issued) {
+
+                    books[i].issued = true;
+                    System.out.println("Book issued successfully to Student ID " + studentId);
+
+                } else {
+                    System.out.println("Book already issued");
+                }
+
+                return;
+            }
+        }
+
+        System.out.println("Book not found");
+    }
+
+    // Return Book
+    public static void returnBook() {
+
+        System.out.print("Enter Book ID: ");
+        int bookId = sc.nextInt();
+
+        for (int i = 0; i < bookCount; i++) {
+
+            if (books[i].id == bookId) {
+
+                if (books[i].issued) {
+
+                    books[i].issued = false;
+                    System.out.println("Book returned successfully");
+
+                } else {
+                    System.out.println("This book was not issued");
+                }
+
+                return;
+            }
+        }
+
+        System.out.println("Book not found");
+    }
+
+    public static void main(String[] args) {
+
+        while (true) {
+
+            System.out.println("\n===== Library Management System =====");
+            System.out.println("1 Add Book");
+            System.out.println("2 View Books");
+            System.out.println("3 Register Student");
+            System.out.println("4 View Students");
+            System.out.println("5 Issue Book");
+            System.out.println("6 Return Book");
+            System.out.println("7 Exit");
+
+            System.out.print("Enter choice: ");
+
+            int choice = sc.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    addBook();
+                    break;
+
+                case 2:
+                    viewBooks();
+                    break;
+
+                case 3:
+                    registerStudent();
+                    break;
+
+                case 4:
+                    viewStudents();
+                    break;
+
+                case 5:
+                    issueBook();
+                    break;
+
+                case 6:
+                    returnBook();
+                    break;
+
+                case 7:
+                    System.exit(0);
+
+                default:
+                    System.out.println("Invalid choice");
+            }
+        }
+    }
+}
